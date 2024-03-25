@@ -3,12 +3,12 @@ include ../../mixins/alert.pug
 include ../../mixins/select-tree.pug
 
 block main 
-    +alert-error(5000)
-    h1(class="mb-4") Them moi san phan 
+    h1(class="mb-4") Them moi danh muc san phan 
 
+    +alert-error(5000)
+    
     form(
-        action=`${prefixAdmin}/products/create`
-        id="form-create-product"
+        action=`${prefixAdmin}/products-category/create`
         method="POST"
         enctype="multipart/form-data"
     )
@@ -22,16 +22,17 @@ block main
                 required
             )
         div(class="form-group")
-            label(for="poduct_category_id") Danh muc
+            label(for="parent_id") Danh muc cha
+            
             select(
-                name="poduct_category_id"
-                id="poduct_category_id"
+                name="parent_id"
+                id="parent_id"
                 class="form-control"
             )
-                option(value="") --Chon danh muc--
-                if(category)
-                    +select-tree(category)
-
+                option(value="") --Chon danh muc cha--
+                if(records)
+                    +select-tree(records)
+            
         div(class="form-group")
             label(for="desc") Mo ta
             textarea(
@@ -40,40 +41,6 @@ block main
                 name="description"
                 rows="5"
             )   
-        
-        div(class="form-group")
-            label(for="price") Gia 
-            input(
-                type="number"
-                class="form-control"
-                id="price"
-                name="price"
-                value="0"
-                min="0"
-                required
-            )
-        div(class="form-group")
-            label(for="title") % Giam gia
-            input(
-                type="number"
-                class="form-control"
-                id="discount"
-                name="discountPercentage"
-                value="0"
-                min="0"
-                required
-            )
-        div(class="form-group")
-            label(for="stock") So luong
-            input(
-                type="text"
-                class="form-control"
-                id="stock"
-                name="stock"
-                value="0"
-                min="0"
-                required
-            )
         div(
             class="form-group"
             upload-image
@@ -126,4 +93,3 @@ block main
                 type="submit"
                 class="btn btn-primary"
             ) Tao moi
-    script(src="/admin/js/product.js")

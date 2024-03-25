@@ -1,0 +1,84 @@
+extends ../../layouts/default.pug 
+include ../../mixins/alert.pug
+block main 
+    +alert-success(5000)
+    h1(class="mb-4") Phan quyen 
+
+    div(class="text-right")
+        button(
+            type="submit"
+            class="btn btn-primary mb-3"
+            button-submit
+        )  Cap nhat 
+    
+    table(
+        class="table table-hover table-sm"
+        table-permissions
+    )
+        thead 
+            tr 
+                th Tinh nang 
+                th(class="text-center") Quan tri vien 
+                th(class="text-center") Quan ly noi dung 
+        tbody 
+            tr(data-name="id" class="d-none")
+                td
+                //- each items in records 
+                //-     td(class="text-center")
+                //-         input(type="text")
+            tr 
+                td(colspan="4")
+                    b Danh muc san pham 
+            tr(data-name="products-category_view")
+                td Xem 
+                //- each item in records
+                //-     td(class="text-center")
+                //-         input(type="checkbox")
+                td(class="text-center")
+                    input(type="checkbox") 
+                td(class="text-center")
+                    input(type="checkbox")
+
+            tr(data-name="products-category_create")
+                td Them moi
+                //- each item in records
+                //-     td(class="text-center")
+                //-         input(type="checkbox")
+                   input(type="checkbox") 
+                td(class="text-center")
+                    input(type="checkbox") 
+                td(class="text-center")
+                    input(type="checkbox")
+
+            tr(data-name="products-category_edit")
+                td Chinh sua
+                //- each item in records
+                //-     td(class="text-center")
+                //-         input(type="checkbox")
+                td(class="text-center")
+                    input(type="checkbox") 
+                td(class="text-center")
+                    input(type="checkbox")
+            tr(data-name="products-category_delete")
+                td Xoa
+                //- each item in records
+                //-     td(class="text-center")
+                //-         input(type="checkbox")
+                td(class="text-center")
+                    input(type="checkbox") 
+                td(class="text-center")
+                    input(type="checkbox")
+                
+    form(
+        id="form-change-permissions"
+        medthod ="POST"
+        action=`${prefixAdmin}/roles/permissions?_method=PATCH`
+        class="d-none"
+    )
+        div(class="form-group")
+            input(
+                type="text"
+                class="form-control"
+                name="permissions"
+            )
+    script(src="/admin/js/roles.js")

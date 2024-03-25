@@ -4,9 +4,10 @@ const systemConfig = require("../../config/system")
 const filterStatusHelper = require("../../helpers/filterStatus")
 const searchHelper = require("../../helpers/search")
 const paginationHelper = require("../../helpers/pagination");
-const { prefixAdmin } = require("../../config/system");
 
+const ProductCategory = require("../../models/product-category.model");
 
+const createTreeHelper = require("../../helpers/createTree")
 //[GET] /admin/products
 module.exports.index = async (req, res) => {
     
@@ -38,8 +39,18 @@ module.exports.index = async (req, res) => {
     );
 
     // end pagination
+    // sort
+    let sort = {};
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue;
+    }else{
+        sort.position = "desc"; // mac dinh neu khong truyen thi sap xep nhu nay
+
+    }
+
+    //end sort
     const products = await Product.find(find)
-        .sort({position:"desc"})
+        .sort(sort)
         .limit(objectPagination.limitItems)
         .skip(objectPagination.skip);
 
@@ -114,8 +125,16 @@ module.exports.deleteItem = async (req, res) => {
 
 //[GET] /admin/products/create
 module.exports.create = async (req, res) => {
+    let find = {
+        deleted: false
+    }
+    const category = await ProductCategory.find(find);
+
+    const newCategory = createTreeHelper.tree(category);
+
     res.render("admin/pages/products/create",{
-       pageTitle:"Them moi san pham"
+       pageTitle: "Them moi san pham",
+       category: newCategory
     });
 }
 
@@ -130,9 +149,7 @@ module.exports.createPost = async (req, res) => {
     }else{
         req.body.position =  parseInt(req.body.position);
     }
-    if(req.file){
-        req.body.thumbnail=`/uploads/${req.file.filename}`
-    }
+
     const product = new Product(req.body); //tao phia model
     await product.save(); //luu vao database
     
@@ -148,9 +165,14 @@ module.exports.edit = async (req, res) => {
     
         };
         const product = await Product.findOne(find);
+
+        const category = await ProductCategory.find({deleted:false});
+    
+        const newCategory = createTreeHelper.tree(category);
         res.render("admin/pages/products/edit",{
            pageTitle:"Chinh sua san pham ",
-           product: product
+           product: product,
+           category: newCategory
         });
     }catch (error) {
         res.redirect(`${systemConfig.prefixAdmin}/products`)

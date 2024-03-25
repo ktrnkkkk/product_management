@@ -1,4 +1,5 @@
 const express = require("express");
+const path =require("path");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 const flash  = require("express-flash");
@@ -33,6 +34,11 @@ app.use(cookieParser("kkkkkkkkk"));// string randoom tu tao ra
 app.use(session({cookie: {maxAge: 6000}}));
 app.use(flash());
 //end flash
+
+//tinymce
+app.use('/tinymce',express.static(path.join(__dirname,'node_modules','tinymce')));
+
+//end tinymce
 
 // App locals variables
 app.locals.prefixAdmin=systemConfig.prefixAdmin;//ton tai trong tat ca cac file pug

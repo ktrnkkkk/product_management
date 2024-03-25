@@ -2,8 +2,9 @@
 .header{
     background:#202020;
     padding: 10px 0;
-    position: stiky;
+    position: fixed;
     top:0;
+    width: 100%;
     z-index:999;
 }
 
@@ -14,22 +15,25 @@
 }
 /* end header */
 /* body */
-.body .sider{
+.sider {
     width: 150px;
-    background:#323232;
-    color:#fff;
-    height: calc(100vh-56px);
+    background: #323232;
+    color: #fff;
     position: fixed;
-    top:56px;
+    top: 56px; /* Khoảng cách từ header */
     left: 0;
-
+    bottom: 0;
+    z-index: 998; /* Đặt z-index thấp hơn header */
+    overflow-y: auto;
 }
-
-.body .main{
-    margin:15px;
-    position:relative;
-    left:150px;
-    width: calc(100%-180px);
+.body {
+    padding-top: 56px; /* Khoảng cách từ header */
+    padding-left: 150px; /* Khoảng cách từ sidebar */
+}
+.body .main {
+    padding: 15px;
+    width: calc(100% - 150px);
+    transition: padding-left 0.5s ease; /* Áp dụng hiệu ứng transition cho padding-left */
 }
 /* end body */
 /* sider */
