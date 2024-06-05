@@ -1,54 +1,53 @@
-extends ../../layouts/default.pug
-block main 
+extends ../../layouts/default.pug  
 
-    h1(class="mb-4") Nhom quyen
+block main 
+  if (role.permissions.includes("roles_view"))
+    h1(class="mb-4") Nhóm quyền 
 
     .card.mb-3 
-        .card-header Danh sach
-            .card-body 
-                .row 
-                    .col-8
-                    .col-4 
-                        a(
-                            href=`${prefixAdmin}/roles/create`
-                            class="btn btn-outline-success"
-                        ) +Them moi
+      .card-header Danh sách 
+      .card-body 
+        .row 
+          .col-8 
+          .col-4.text-right 
+            if (role.permissions.includes("roles_view"))
+              a(
+                href=`${prefixAdmin}/roles/create`
+                class="btn btn-outline-success"
+              ) + Thêm mới
+        
+        table(
+          class="table table-hover table-sm"
+          checkbox-multi
+        )
+          thead 
+            tr
+              th STT 
+              th Nhóm quyền
+              th Mô tả
+              th Hành động
 
-
-            table(
-                class="table table-hover table-sm "
-            )
-                thead 
-                    tr  
-                        th STT 
-                        th Nhom quyen 
-                        th Mo ta ngan
-                        th Hanh dong 
-
-                tbody 
-                    if(records.length >0 )
-                        each item, index in records
-                            tr  
-                                td #{index +1}
-                                td #{item.title} 
-                                td #{item.description}
-                                td
-                                    a(
-                                        href=`${prefixAdmin}/roles/detail/${item.id}`
-                                        class="btn btn-secondary btn-sm"
-                                    ) Chi tiet
-                                    a(
-                                        href=`${prefixAdmin}/roles/edit/${item.id}`
-                                        class="btn btn-warning btn-sm ml-1"
-                                    ) Sua 
-                                    button(
-                                        class="btn btn-danger btn-sm ml-1"
-                                        button-delete
-                                        data-id=item.id
-                                    ) Xoa
-                    else 
-                        tr 
-                            td(colspan="4" class="text-center") Chua co nhom quyen nao duoc tao
-
-
-                
+          tbody 
+            if(records.length > 0)
+              each item, index in records 
+                tr 
+                  td #{index + 1}
+                  td #{item.title}
+                  td #{item.description}
+                  td 
+                    a(
+                      class="btn btn-secondary btn-sm ml-1"
+                      href=`${prefixAdmin}/roles/detail/${item.id}`
+                    ) Chi tiết 
+                    if (role.permissions.includes("roles_edit"))
+                      a(
+                        class="btn btn-warning btn-sm ml-1"
+                        href=`${prefixAdmin}/roles/edit/${item.id}`
+                      ) Sửa
+                    if (role.permissions.includes("roles_delete"))
+                      a(
+                        class="btn btn-danger btn-sm ml-1"
+                      ) Xoá
+            else 
+              tr 
+                td(colspan="4" class="text-center") Chưa có nhóm quyền nào được tạo

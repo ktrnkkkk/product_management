@@ -1,103 +1,101 @@
-/* header */
-.header{
-    background:#202020;
-    padding: 10px 0;
-    position: fixed;
-    top:0;
-    width: 100%;
-    z-index:999;
+/* Header */
+.header {
+  background: #202020;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 999;
 }
 
-.header .inner-logo a{
-    font-size:24px;
-    font-weight:700;
-    color:#fff;
+.header .inner-logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
 }
-/* end header */
-/* body */
-.sider {
-    width: 150px;
-    background: #323232;
-    color: #fff;
-    position: fixed;
-    top: 56px; /* Khoảng cách từ header */
-    left: 0;
-    bottom: 0;
-    z-index: 998; /* Đặt z-index thấp hơn header */
-    overflow-y: auto;
+/* End Header */
+
+/* Body */
+.body .sider {
+  width: 150px;
+  background: #323232;
+  color: #fff;
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px;
+  left: 0
 }
-.body {
-    padding-top: 56px; /* Khoảng cách từ header */
-    padding-left: 150px; /* Khoảng cách từ sidebar */
-}
+
 .body .main {
-    padding: 15px;
-    width: calc(100% - 150px);
-    transition: padding-left 0.5s ease; /* Áp dụng hiệu ứng transition cho padding-left */
+  margin: 15px;
+  position: relative;
+  left: 150px;
+  width: calc(100% - 180px);
 }
-/* end body */
-/* sider */
-.sider .inner-menu ul{
-    list-style: none;
-    padding:0;
-    margin:0;
-}
-.sider .inner-menu ul li a{
-    color:#fff;
-    display:block;
-    padding:6px 10px;
-    border-bottom: 1px solid #515151;
+/* End Body */
 
-}
-/* end sider */
-/* show alert */
-[show-alert]{
-    position: fixed;
-    top:70px;
-    right:15px;
-    z-index:9999;
+/* Sider */
+.sider .inner-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-[show-alert].alert-hidden{
-    animation-name: alert-hidden;
-    animation-duration: 0.5s;
-    animation-fill-mode: both;
+.sider .inner-menu ul li a {
+  color: #fff;
+  display: block;
+  padding: 6px 10px;
+  border-bottom: 1px solid #515151;
+}
+/* End Sider */
+
+/* Show Alert */
+[show-alert] {
+  position: fixed;
+  top: 70px;
+  right: 15px;
+  z-index: 9999;
+}
+
+[show-alert].alert-hidden {
+  animation-name: alert-hidden;
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
 }
 
 @keyframes alert-hidden {
-    from{
-        right:15px;
-    }
-    to{
-        right:-100px;
-        display:none;
-    }
+  from {
+    right: 15px;
+  } 
+  to {
+    right: -100%;
+    display: none
+  }
 }
 
-[show-alert] [close-alert]{
-    background: #ffffffc4;
-    display: inline-block;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
-    font-weight: 600;
-    border-radius: 50%;
-    cursor: pointer;
-}
-/* end show alert */
+[show-alert] [close-alert] {
+  background: #ffffffc4;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+} 
+/* End Show Alert */
 
-/* image preview */
-.image-preview{
-    width:150px;
-    height: auto;
-    margin-top:15px;
-    border: 1px solid #ddd;
-    padding: 15px;
-    border-radius:5px;;
+/* Image Preview */
+.image-preview {
+  width: 150px;
+  height: auto;
+  margin-top: 15px;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
 }
 
-.image-preview[src=""]{
-    display:none;
+.image-preview[src=""] {
+  display: none;
 }
-/* end image preview */
+/* End Image Preview */

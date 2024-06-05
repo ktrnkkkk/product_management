@@ -1,11 +1,10 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
 module.exports.connect = async () => {
-    try{
-        await mongoose.connect(process.env.MONGO_URL);
-        console.log("Connect Success");
-    }catch(error){
-        console.error("Connect Error:", error.message);
-    }
+  try {
+    await mongoose.connect(process.env.MONGO_URL);
+    console.log("Connected");
+  } catch (error) {
+    console.log("Connect Error");
+  }
 }
-// kko bt thanh cong hay that bai nen tach ra
